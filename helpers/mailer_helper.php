@@ -11,36 +11,40 @@ require APPPATH.'libraries/phpmailer/src/SMTP.php';
 class Mailer {
 
   public static function sendMail($parameters) {
-    $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+    $CI =& get_instance();
+    $CI->load->config('mailer');
+
+    $SMTPDebug = $CI->config->item('SMTPDebug');
+    $CharSet = $CI->config->item('CharSet');
+    $Host = $CI->config->item('Host');
+    $SMTPAuth = $CI->config->item('SMTPAuth');
+    $Username = $CI->config->item('Username');
+    $Password = $CI->config->item('Password');
+    $SMTPSecure = $CI->config->item('SMTPSecure');
+    $Port = $CI->config->item('Port');
+    $SMTPOptions = $CI->config->item('SMTPOptions');
+
+    $mail = new PHPMailer(true);                             
     try {
-      //Server settings
-      $mail->SMTPDebug = 0;                                 // Enable verbose debug output
-      $mail->CharSet="UTF-8";
-      $mail->isSMTP();                                      // Set mailer to use SMTP
-      $mail->Host = '';  // Specify main and backup SMTP servers
-      $mail->SMTPAuth = true;                               // Enable SMTP authentication
-      $mail->Username = '';                 // SMTP username
-      $mail->Password = '';                        // SMTP password
-      $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-      $mail->Port = 587;                                    // TCP port to connect to
-      $mail->SMTPOptions = array(
-        'ssl' => array(
-          'verify_peer' => false,
-          'verify_peer_name' => false,
-          'allow_self_signed' => true
-        )
-      );
+      
+      $mail->SMTPDebug = $SMTPDebug;                         
+      $mail->CharSet=$CharSet;
+      $mail->isSMTP();                                     
+      $mail->Host = $Host;  
+      $mail->SMTPAuth = $SMTPAuth;                            
+      $mail->Username = $Username;         
+      $mail->Password = $Password;         
+      $mail->SMTPSecure = $SMTPSecure;     
+      $mail->Port = $Port;                 
+      $mail->SMTPOptions = $SMTPOptions;
   
-      //Recipients
-      $mail->setFrom('notifications@example.com', 'Notifications');
+      $mail->setFrom($Username, 'Notifications');
 
       foreach($parameters['mails'] AS $email) {
         $mail->addAddress($email);
       }
       
-  
-      //Content
-      $mail->isHTML(true);                                  // Set email format to HTML
+      $mail->isHTML(true);                              
       $mail->Subject = $parameters['subject'];
       $mail->Body    = $parameters['body'];
       $mail->AltBody = 'Alternative text for no HTML mail clients';
