@@ -28,7 +28,7 @@ class Mailer {
     try {
       
       $mail->SMTPDebug = $SMTPDebug;                         
-      $mail->CharSet=$CharSet;
+      $mail->CharSet = $CharSet;
       $mail->isSMTP();                                     
       $mail->Host = $Host;  
       $mail->SMTPAuth = $SMTPAuth;                            
