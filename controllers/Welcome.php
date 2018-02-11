@@ -20,11 +20,6 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$rules = [
-			'algo' => [
-				'algo2' => 10
-			]
-		];
-		echo $rules['algo']['algo2'];
+		$this->load->view('Welcome/welcome_view');
 	}
 }

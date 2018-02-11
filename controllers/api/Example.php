@@ -12,4 +12,12 @@ class Example extends CI_Controller {
   public function exampleFunction() {
     echo json_encode($this->example->exampleFunction());
   }
+
+  public function signIn() {
+    echo json_encode($this->example->signIn());
+  }
+
+  public function signOut() {
+    echo json_encode($this->example->signOut());
+  }
 }

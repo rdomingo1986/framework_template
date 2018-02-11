@@ -4,9 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class ProjectHooks {
 
   private $rules = [
-    'class' => [
-      'function_1' => [
-        'validateSignIn' => true
+    'example' => [
+      'examplefunction' => [
+        'validateSignIn' => true,
+        'validationRule' => 'validation-rule'
       ],
       'function_2' => [
         'validationRule' => 'rule-name'
